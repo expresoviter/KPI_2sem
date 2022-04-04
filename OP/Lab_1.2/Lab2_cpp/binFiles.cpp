@@ -11,6 +11,7 @@ void inputData(int act) {
     int pos = 0;
     cin.ignore();
     string time;
+    cout << "\nвведення вiдбувається у форматi ГГ:ХХ" << endl;
     cout << "\nпочаток (stop для завершення роботи): ";
     getline(cin,time);
     inFile.open("input.bin", ios::app | ios::binary);

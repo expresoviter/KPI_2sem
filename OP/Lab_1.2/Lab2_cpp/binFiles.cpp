@@ -11,7 +11,7 @@ void inputData(int act) {
     int pos = 0;
     cin.ignore();
     string time;
-    cout << "\nпочаток: ";
+    cout << "\nпочаток (stop для завершення роботи): ";
     getline(cin,time);
     inFile.open("input.bin", ios::app | ios::binary);
     string temp;
@@ -24,7 +24,7 @@ void inputData(int act) {
             m = stoi(temp);
         }
         if (time[2] != ':' || h < 0 || h>23 || m < 0 || m>59) {
-            cout << "Некоректний ввiд" << endl;
+            cout << "Некоректний ввiд. Неправильний формат даних." << endl;
             if (pos == 1) {
                 cout << "Початок перерви не дiйсний" << endl;
                 pos = 0;
@@ -36,12 +36,11 @@ void inputData(int act) {
                 pos = 1;
             }
             else {
-                if (h * 60 + m > tMins[0]) {
+                if (h * 60 + m > tMins[0])
                     tMins[1] = h * 60 + m;
-                    pos = 0;
-                }
                 else
-                    cout << "Некоректний ввiд" << endl;
+                    cout << "Некоректний ввiд. Початок перерви не дiйсний" << endl;
+                pos = 0;
             }
         }
         int inc = 0;
@@ -61,10 +60,10 @@ void inputData(int act) {
         if (pos == 0) {
             tMins[0] = 0;
             tMins[1] = 0;
-            cout << "початок: ";
+            cout << "початок (stop для завершення роботи): ";
         }
         else
-            cout << "кiнець: ";
+            cout << "кiнець (stop для завершення роботи): ";
         cin >> time;
     }
     inFile.close();

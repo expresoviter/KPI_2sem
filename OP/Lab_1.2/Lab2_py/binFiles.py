@@ -5,14 +5,15 @@ def inputData(act):
     aMins=readAndTranslate("input.bin")     #Отримуємо масив уже введених перерв
     tMins=[0,0]
     pos=0
-    time=input("початок: ")
+    print("введення відбувається у форматі ГГ:ХХ")
+    time=input("початок (stop для заверешення роботи): ")
     with open("input.bin","ab") as inFile:
         while time!="stop":
             h,m=-1,-1
             if time[:2].isdigit() and time[3:].isdigit():       #Перевірка на коректність
                 h,m=int(time[:2]),int(time[3:])
             if time[2]!=":" or h<0 or h>23 or m<0 or m>59:
-                print("Некоректний ввід")
+                print("Некоректний ввід. Неправильний формат даних.")
                 if pos==1:
                     print("Початок перерви не дійсний")
                     pos=0
@@ -23,7 +24,8 @@ def inputData(act):
                 tMins[1]=h*60+m
                 pos=0
             else:
-                print("Некоректний ввід")
+                print("Некоректний ввід. Початок перерви не дійсний.")
+                pos=0
             inc=0
             if tMins[0]==0 or tMins[1]==0:
                 inc=1
@@ -34,12 +36,12 @@ def inputData(act):
             if inc==0:                                          #Не накладається - додаємо у сталий масив перерв
                 aMins.append(tMins[0])
                 aMins.append(tMins[1])
-                inFile.write(bytes(str(tMins[0])+" "+str(tMins[1])+" ", encoding="ASCII"))
+                inFile.write(bytes(str(tMins[0])+" "+str(tMins[1])+" ", encoding="utf-8"))
             if pos==0:
                 tMins=[0,0]
-                time=input("початок: ")
+                time=input("початок (stop для заверешення роботи): ")
             else:
-                time=input("кінець: ")
+                time=input("кінець (stop для заверешення роботи): ")
 
 def readAndTranslate(name):
     with open(name,"rb") as inFile:                                 
